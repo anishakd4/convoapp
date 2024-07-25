@@ -21,19 +21,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 app.post("/convertFile", upload.single("file"), (req, res, next) => {
-  console.log("hit route");
+  console.log("hit route 1");
   try {
     if (!req.file) {
       return res.status(400).json({
         message: "No file  uploaded",
       });
     }
+    console.log("hit route 2");
     // Defining outout file path
     let outoutPath = path.join(
       __dirname,
       "files",
       `${req.file.originalname}.pdf`
     );
+    console.log("hit route 3");
     docxToPDF(req.file.path, outoutPath, (err, result) => {
       if (err) {
         console.log(err);
@@ -45,7 +47,9 @@ app.post("/convertFile", upload.single("file"), (req, res, next) => {
         console.log("file downloaded");
       });
     });
+    console.log("hit route 4");
   } catch (error) {
+    console.log("hit route 5");
     console.log(error);
     res.status(500).json({
       message: "Internal server error",
