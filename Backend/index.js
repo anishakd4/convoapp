@@ -37,13 +37,17 @@ app.post("/convertFile", upload.single("file"), (req, res, next) => {
     );
     console.log("hit route 3");
     docxToPDF(req.file.path, outoutPath, (err, result) => {
+      console.log("hit route 6");
       if (err) {
+        console.log("hit route 7");
         console.log(err);
         return res.status(500).json({
           message: "Error converting docx to pdf",
         });
       }
+      console.log("hit route 8");
       res.download(outoutPath, () => {
+        console.log("hit route 9");
         console.log("file downloaded");
       });
     });
